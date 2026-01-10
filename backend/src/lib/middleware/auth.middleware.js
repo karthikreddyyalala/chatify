@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import User from "../../models/User.js";
-2
+
 import { ENV } from "../env.js";
 
 
