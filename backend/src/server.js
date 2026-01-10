@@ -1,14 +1,12 @@
-import express from 'express';
-import authRoutes from './routes/auth.route.js';
-import messageRoutes from './routes/message.route.js';
-import path from 'path';
-import { connect } from 'http2';
-import { connectDB } from './lib/db.js';
-import cookiePareser from 'cookie-parser';
-import {ENV} from "./lib/env.js";
-
-
-
+import express from "express";
+import authRoutes from "./routes/auth.route.js";
+import messageRoutes from "./routes/message.route.js";
+import path from "path";
+import { connect } from "http2";
+import { connectDB } from "./lib/db.js";
+import cookiePareser from "cookie-parser";
+import { ENV } from "./lib/env.js";
+import cors from "cors";
 
 const app = express();
 const __dirname = path.resolve();
@@ -16,18 +14,18 @@ const __dirname = path.resolve();
 const PORT = ENV.PORT || 3000;
 
 app.use(express.json());
+app.use(cors({ origin: ENV.CLIENT_URL, credentials: true }));
 app.use(cookiePareser());
-
 
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 
-if(ENV.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../frontend', 'dist')))
+if (ENV.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../frontend", "dist")));
 
-  app.get('*', (_, res) => {
-    res.sendFile(path.join(__dirname, '../frontend', 'dist', 'index.html')); 
-  })
+  app.get("*", (_, res) => {
+    res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+  });
 }
 
 app.listen(PORT, () => {
