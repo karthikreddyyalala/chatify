@@ -1,22 +1,19 @@
-import React from 'react'
-import {useAuthStore} from '../store/useAuthStore.js';
-import { useState } from 'react';
-import BorderAnimatedContainer from '../components/BorderAnimatedContainer.jsx';
-import {MessageCircleIcon, LockIcon, MailIcon, UserIcon,LoaderIcon} from "lucide-react";
-import { Link } from 'react-router-dom'; 
+import { useState } from "react";
+import { useAuthStore } from "../store/useAuthStore";
+import BorderAnimatedContainer from "../components/BorderAnimatedContainer";
+import { MessageCircleIcon, LockIcon, MailIcon, UserIcon, LoaderIcon } from "lucide-react";
+import { Link } from "react-router";
 
+function SignUpPage() {
+  const [formData, setFormData] = useState({ fullName: "", email: "", password: "" });
+  const { signup, isSigningUp } = useAuthStore();
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    signup(formData);
+  };
 
- function SignUpPage() {
-    const [formData, setFormData] = useState({fullName: "", email: "", password: ""});
-    const {signup,isSigningUp} = useAuthStore();
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        signup(formData);
-
-    }
-return (
+  return (
     <div className="w-full flex items-center justify-center p-4 bg-slate-900">
       <div className="relative w-full max-w-6xl md:h-[800px] h-[650px]">
         <BorderAnimatedContainer>
@@ -69,7 +66,7 @@ return (
                   <div>
                     <label className="auth-input-label">Password</label>
                     <div className="relative">
-                      <LockIcon className="auth-input-icon" />
+                      <MailIcon className="auth-input-icon" />
 
                       <input
                         type="password"
@@ -124,5 +121,4 @@ return (
     </div>
   );
 }
-
-export default SignUpPage
+export default SignUpPage;
